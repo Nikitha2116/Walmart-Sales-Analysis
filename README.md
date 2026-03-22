@@ -1,69 +1,68 @@
-## 🧵 Project Story: Why This Analysis Matters
+# 🛒 Walmart Store Sales Analysis — SQL-Driven Business Intelligence
 
-Walmart operates hundreds of stores across the U.S., and each location faces unique challenges -
-holiday rushes, seasonal trends, economic changes, and unpredictable customer behavior. 
-Understanding *why* some stores outperform others is critical for planning inventory, staffing, 
-and promotions.
+> *"Data isn't just numbers — it's the story of business decisions waiting to be discovered."*
 
-This project began with one question:
-**“What truly drives sales performance at Walmart stores?”**
+![SQL](https://img.shields.io/badge/SQL-MySQL-blue?style=flat-square&logo=mysql)
+![Status](https://img.shields.io/badge/Status-Completed-success?style=flat-square)
+![Domain](https://img.shields.io/badge/Domain-Retail%20Analytics-orange?style=flat-square)
 
-Using SQL, I explored how holidays, economic factors, and time-based patterns influence sales 
-across different regions.
+---
 
-🧠 Hypothesis  
-I hypothesize that:
-- Holiday weeks have significantly higher sales than non-holiday weeks.
-- External factors such as fuel price, CPI, and unemployment influence weekly sales patterns.
-- Certain stores remain top performers regardless of economic conditions.
+## 🧵 The Business Problem
 
-🎯 OBJECTIVES
+Walmart operates hundreds of stores across the U.S., each facing unique pressures — holiday rushes, economic shifts, regional trends, and unpredictable customer behavior. Knowing *why* some stores consistently outperform others is critical for inventory planning, staffing, and promotions.
 
-- Clean and standardize inconsistent date formats
-- Rank stores by total sales using SQL window functions
-- Compare holiday vs non-holiday week sales
-- Identify monthly and yearly sales trends
-- Analyze economic factors affecting performance
+**This project answers one core question:**
+### 💬 *"What truly drives sales performance at Walmart stores?"*
 
-🧠 TECH STACK
+---
 
-- MySQL
-- Data Cleaning, Aggregation, and Transformation
-- Window Functions (`RANK() OVER`)
-- Grouping and Conditional Logic (`CASE WHEN`)
-- Business Insight Generation
+## 🧠 Hypothesis
 
-📊 DATASET DETAILS
+| # | Hypothesis |
+|---|-----------|
+| 1 | Holiday weeks generate significantly higher sales than regular weeks |
+| 2 | Economic factors (CPI, fuel price, unemployment) influence weekly sales |
+| 3 | Certain stores are consistent top performers regardless of economic conditions |
 
-- **Store:** Unique ID for each Walmart store  
-- **Date:** Weekly sales date  
-- **Weekly_Sales:** Total sales per store per week  
-- **Holiday_Flag:** 1 = Holiday week, 0 = Regular week  
-- **Temperature, Fuel_Price, CPI, Unemployment:** External variables
+---
 
-## 📊 How I Tested My Hypothesis  
-To validate the hypothesis, I performed the following:
+## 📦 Dataset Overview
 
-- 🧹 Cleaned inconsistent date formats  
-- 🎯 Compared holiday vs non-holiday weekly sales  
-- 📅 Analyzed monthly and yearly sales patterns  
-- 🏆 Used SQL window functions (`RANK() OVER`) to identify top-performing stores  
-- 📉 Examined how CPI, fuel price, and unemployment correlate with weekly sales  
-- 📊 Wrote multiple SQL queries to test each part of the hypothesis  
+| Column | Description |
+|--------|-------------|
+| `Store` | Unique store identifier |
+| `Date` | Weekly sales date |
+| `Weekly_Sales` | Total sales per store per week |
+| `Holiday_Flag` | 1 = Holiday week, 0 = Regular week |
+| `Temperature` | Regional temperature at time of sale |
+| `Fuel_Price` | Local fuel cost |
+| `CPI` | Consumer Price Index |
+| `Unemployment` | Regional unemployment rate |
 
-## 📈 Key Findings (Resolution)
+---
 
-- 🎉 Holiday weeks had significantly higher weekly sales  
-- 🏪 Store 20 and Store 4 were consistent top performers  
-- ⛽ Fuel price had minimal impact on sales  
-- 📉 CPI & unemployment showed moderate correlation with performance  
-- ☀️ Summer months had more stable sales than winter months  
+## 🎯 Objectives
 
-These results confirm or reject parts of the hypothesis and complete the “story arc” of the project.
+- 🧹 Clean and standardize inconsistent date formats
+- 🏆 Rank stores by total sales using SQL window functions
+- 📅 Compare holiday vs. non-holiday week performance
+- 📈 Identify monthly and yearly sales trends
+- 🔗 Analyze economic factors and their impact on sales
 
-🔍 ANALYSIS HIGHLIGHTS
+---
 
-💡 **1. Store Performance Ranking**
+## 🛠️ Tech Stack
+
+```
+MySQL · Window Functions · Aggregation · CASE WHEN Logic · Data Cleaning
+```
+
+---
+
+## 🔍 Analysis Highlights
+
+### 🏆 1. Store Performance Ranking
 ```sql
 SELECT Store_id, 
        SUM(Weekly_Sales) AS Total_Sales,
@@ -71,44 +70,77 @@ SELECT Store_id,
 FROM walmart.walmart
 GROUP BY Store_id;
 ```
-🏆 Store 20 achieved the highest overall sales performance.
+> **Store 20** achieved the highest overall sales — consistently ranked #1.
 
-💡 **2. Holiday Impact**
-Holiday weeks showed an average sales boost of 15–25% across most stores.
+---
 
-💡 **3. Monthly Trends**
-Peak sales observed during holiday months (Nov–Dec), 
-while lowest sales occurred mid-year (June–July).
+### 🎉 2. Holiday vs. Non-Holiday Sales
+```sql
+SELECT Holiday_Flag,
+       AVG(Weekly_Sales) AS Avg_Sales,
+       COUNT(*) AS Total_Weeks
+FROM walmart.walmart
+GROUP BY Holiday_Flag;
+```
+> Holiday weeks showed a **15–25% average sales boost** across most stores.
 
-💡 **4. External Factors**
-Temperature and fuel price fluctuations had a measurable effect 
-on weekly sales performance.
+---
 
-📈 INSIGHTS & LEARNINGS
+### 📅 3. Monthly Sales Trends
+```sql
+SELECT MONTH(Date) AS Month,
+       ROUND(AVG(Weekly_Sales), 2) AS Avg_Monthly_Sales
+FROM walmart.walmart
+GROUP BY MONTH(Date)
+ORDER BY Month;
+```
+> Peak sales: **November–December** | Lowest: **June–July**
 
-- Translating raw data into actionable business insights
-- Applying analytical SQL concepts to real-world retail data
-- Strengthened storytelling and data presentation skills
+---
 
-🖼️ SAMPLE OUTPUT
+### 📉 4. Economic Factor Correlation
+> CPI and unemployment showed **moderate correlation** with weekly sales.  
+> Fuel price had **minimal standalone impact**.
+
+---
+
+## 📊 Key Findings
+
+| Finding | Result |
+|---------|--------|
+| 🎉 Holiday Impact | ✅ Confirmed — 15–25% sales increase during holiday weeks |
+| 🏪 Top Performers | Store 20 & Store 4 — consistent leaders |
+| ⛽ Fuel Price | ❌ Minimal effect on sales volume |
+| 📉 CPI & Unemployment | ⚠️ Moderate correlation observed |
+| ☀️ Seasonal Trends | Summer months more stable; winter peaks in Nov–Dec |
+
+---
+
+## 🖼️ Sample Output
 
 ![Ranked Stores Output](ranked_stores_output.png)
-*Figure: Ranking Walmart stores by total sales using SQL window functions.*
+*Store rankings by total weekly sales using SQL RANK() window function*
 
-👩‍💻 AUTHOR
+---
+
+## 📈 What I Learned
+
+- Translating raw retail data into **actionable business insights**
+- Applying advanced SQL (window functions, CASE WHEN) to real-world scenarios
+- Strengthening **data storytelling** — from hypothesis to conclusion
+
+---
+
+## 🚀 Future Improvements
+
+- [ ] Build Tableau / Power BI dashboard for visual storytelling
+- [ ] Automate the SQL pipeline using Python
+- [ ] Add predictive forecasting for future sales trends
+
+---
+
+## 👩‍💻 Author
 
 **Nikitha Katta**  
-🎓 Graduate Student, University of Delaware  
-🔗 [LinkedIn Profile](https://linkedin.com/in/nikitha-k-01564722a)  
-📧 nikitha@udel.edu  
-
-🌟 FUTURE IMPROVEMENTS
-
-- Create Tableau/Power BI dashboards for visualization
-- Automate SQL analysis pipeline using Python
-- Add predictive analytics (forecasting sales trends)
-
-
-💬 QUOTE
-> *“Data isn’t just numbers - it’s the story of business decisions waiting to be discovered.”*
-
+🎓 MS in Computer & Information Sciences — University of Delaware  
+🔗 [LinkedIn](https://linkedin.com/in/nikitha-k-01564722a) · 📧 nikithakatta.06@gmail.com
