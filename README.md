@@ -143,4 +143,4 @@ ORDER BY Month;
 
 **Nikitha Katta**  
 🎓 MS in Computer & Information Sciences — University of Delaware  
-🔗 [LinkedIn](https://linkedin.com/in/nikitha-k-01564722a) · 📧 nikithakatta.06@gmail.com
+🔗 [LinkedIn(http://linkedin.com/in/nikitha-k-01564722a) · 📧 nikithakatta.06@gmail.com
